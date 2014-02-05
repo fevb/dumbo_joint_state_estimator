@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+  
+  <!-- arm argument can be either 'left' or 'right' -->
+  <arg name="arm" default="left"/>
+
+  <!-- Joint velocity and acceleration estimator -->
+  <node name="$(arg arm)_arm_joint_state_estimator" pkg="dumbo_joint_state_estimator" type="joint_state_estimator_node" cwd="node" respawn="false" output="screen" >
+    <rosparam command="load" file="$(find dumbo_joint_state_estimator)/config/dumbo_$(arg arm)_arm_joint_state_estimator.yaml" />
+    <remap from="/$(arg arm)_arm_joint_state_estimator/state" to="/$(arg arm)_arm_controller/state"/>
+  </node>
+
+</launch>
